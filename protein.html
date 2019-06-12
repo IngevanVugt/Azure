@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+
+	<title>Proteins</title>
+
+	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+            crossorigin="anonymous">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+	<style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+    body, html {
+        height: 100%;
+        line-height: 1.8;
+    }
+    * {
+        box-sizing: border-box;
+    }
+        .bgimg-1 {
+      background-position: center;
+      background-size: cover;
+      background-color: teal;
+      min-height: 300px;
+}
+    </style>
+
+</head>
+<body>
+
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <img src="https://media1.tenor.com/images/ab51b48f52f991e82edbb4846794ad47/tenor.gif?itemid=12939685" CLASS="w3-circle w3-border w3-left" width="50px">
+          <a href={{ url_for("home") }} class="w3-bar-item w3-button w3-wide ">CHAMPY</a>
+          <a href={{ url_for('protein') }} class="w3-bar-item w3-button w3-teal w3-opacity">PROTEIN</a>
+          <a href={{ url_for('organisms') }} class="w3-bar-item w3-button">ORGANISM</a>
+          <a href={{ url_for('blast') }} class="w3-bar-item w3-button ">BLAST</a>
+    </div>
+</div>
+
+<!-- Header with full-height image -->
+<header class="bgimg-1 w3-display-container w3-grayscale-min w3-opacity" id="home">
+    <p style="float: right; margin-right: 100px" class=""><img src="../static/champy_science.gif" height="300px" width="300px" border="1px"></p>
+    <div class="w3-display-left w3-text-white " style="padding:48px">
+        <span class="w3-jumbo w3-hide-small" >PROTEINS</span><br>
+        <span class="w3-xxlarge w3-hide-large w3-hide-medium">PROTEINS</span><br>
+        <span class="w3-xlarge w3-text-white">The database with all the info on micro organisms in compost researched with metagenomics</span><br>
+        <span class="w3-large w3-text-white">Click on the protein name to see the blast results</span>
+    </div>
+</header>
+
+<!-- Form to search for proteins in the protein list -->
+<form>
+    <input type="text" class="w3-bar w3-margin" name="proteinlijst" placeholder="quick search protein..">
+    <button type="submit" class="w3-button w3-margin-left w3-margin-bottom w3-black"> search</button>
+</form>
+
+<!-- Generator for data of proteins in the right styling format -->
+{% for row in data %}
+    <div class="w3-container w3-margin">
+    <button onclick="myFunction({{ row['Actual_ID'] }})" class="w3-btn w3-block w3-teal w3-opacity w3-left-align w3-border">{{ row["Prot_naam"] }}</button>
+        <div id="{{ row["Actual_ID"] }}" class="w3-container w3-hide">
+            <h6>Blast result:</h6>
+            <p>Score: {{ row["Score"] }}</p>
+            <p>Query cover: {{ row["Query_cover"] }}</p>
+            <p>E-value: {{ row["E_value"] }}</p>
+            <p>Percent identity (%): {{ row["Percent_ident"] }}</p>
+            <p>Taxonomy: {{ row["Taxonomie"] }}</p>
+            <a href=" https://www.ncbi.nlm.nih.gov/protein/{{ row["Accessiecode"] }}"> Accession code: {{ row["Accessiecode"] }}</a>
+        </div>
+	</div>
+{% endfor %}
+
+<script>
+    function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }}
+    </script>
+</body>
+</html>
