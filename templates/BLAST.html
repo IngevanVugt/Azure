@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+            crossorigin="anonymous">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+    <title>Organisms</title>
+    <style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+body, html {
+    height: 100%;
+    line-height: 1.8;
+}
+* {
+    box-sizing: border-box;
+}
+h1 {
+  text-align: center;
+}
+
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-color: teal;
+  min-height: 300px;
+}
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+.custom-select select {
+  display: none; /*hide original SELECT element: */
+}
+.select-selected {
+  background-color: Teal;
+}
+/* Style the arrow inside the select element: */
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+/* style the items (options), including the selected item: */
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  background-color: Teal;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+</style>
+</head>
+<body>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <img src="https://media1.tenor.com/images/ab51b48f52f991e82edbb4846794ad47/tenor.gif?itemid=12939685" CLASS="w3-circle w3-border w3-left" width="50px">
+      <a href={{ url_for("home") }} class="w3-bar-item w3-button w3-wide ">CHAMPY</a>
+      <a href={{ url_for("protein") }} class="w3-bar-item w3-button">PROTEIN</a>
+      <a href= {{ url_for("organisms") }} class="w3-bar-item w3-button">ORGANISM</a>
+      <a href={{ url_for("blast") }} class="w3-bar-item w3-button w3-teal w3-opacity">BLAST</a>
+    <!-- Right-sided navbar links -->
+
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+  <a href={{ url_for("organisms") }} onclick="w3_close()" class="w3-bar-item w3-button">Organism</a>
+  <a href={{ url_for("protein") }} onclick="w3_close()" class="w3-bar-item w3-button">Protein</a>
+  <a href={{ url_for("blast") }} class="w3-bar-item w3-button w3-teal w3-opacity">BLAST</a>
+</nav>
+<!-- https://www.ncbi.nlm.nih.gov/protein/accesiecode -->
+<!-- Header with full-height image -->
+<header class="bgimg-1 w3-display-container w3-opacity" id="home">
+  <div class="w3-display-left w3-text-white " style="padding:48px">
+    <span class="w3-jumbo w3-hide-small" >BLAST</span><br>
+    <span class="w3-xxlarge w3-hide-large w3-hide-medium">BLAST</span><br>
+    <span class="w3-xlarge w3-text-white">Here you can BLAST a sequence and add it to our ever growing database</span>
+  </div>
+</header>
+<form method="get">
+    <div class="custom-select">
+    <select name="blast_type" >
+        <option value="0">Click here to select the blast type:</option>
+        <option value="blastx">Blastx</option>
+        <option value="tblastx">Tblastx</option>
+    </select>
+    </div>
+    <p>
+    <input class="w3-margin w3-block" placeholder="Type your sequence to blast here..." type="text" name="seq">
+    <input  class="w3-button w3-teal w3-margin-left" type="submit" value="BLAST!!">
+    </p>
+</div>
+</form>
+
+<div class="w3-container w3-margin">
+    <button onclick="myFunction('Demo1')" class="w3-btn w3-block w3-teal w3-opacity w3-left-align w3-border">Click here to see your queried sequence:</button>
+        <div id="Demo1" class="w3-container w3-hide">
+          <h4>Queried sequence:</h4>
+          <p>{{ sequentie }}</p>
+        </div>
+    <button onclick="myFunction('Demo2')" class="w3-btn w3-block w3-teal w3-opacity w3-left-align w3-border">Click here for the validation:</button>
+        <div id="Demo2" class="w3-container w3-hide">
+          <h4>The sequence is:</h4>
+          <p> {{ resultaat }}</p>
+        </div>
+    <button onclick="myFunction('Demo3')" class="w3-btn w3-block w3-teal w3-opacity w3-left-align w3-border">Click here to see the BLAST results:</button>
+        <div id="Demo3" class="w3-container w3-hide">
+          <div class="w3-panel w3-card-4">
+              <h4>BLAST results:</h4></div>
+            <div class="w3-card-4">
+                <div class="w3-panel w3-teal">
+                    <p class="w3-wide w3-margin-top"> ALLIGNMENT</p>
+                        <form>
+                    <input type="checkbox" name="adding" value="hellooo">
+                            <button type="submit" class="w3-button w3-white w3-margin-bottom" >ADD +</button>
+                </form>
+                </div>
+                    {{ titel }}
+            </div>
+        </div>
+</div>
+
+<script>
+    var x, i, j, selElmnt, a, b, c;
+/*look for any elements with the class "custom-select":*/
+x = document.getElementsByClassName("custom-select");
+for (i = 0; i < x.length; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  /*for each element, create a new DIV that will act as the selected item:*/
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /*for each element, create a new DIV that will contain the option list:*/
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < selElmnt.length; j++) {
+    /*for each option in the original select element,
+    create a new DIV that will act as an option item:*/
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function(e) {
+        /*when an item is clicked, update the original select box,
+        and the selected item:*/
+        var y, i, k, s, h;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < s.length; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            for (k = 0; k < y.length; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
+          }
+        }
+        h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+      /*when the select box is clicked, close any other select boxes,
+      and open/close the current select box:*/
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("select-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+}
+function closeAllSelect(elmnt) {
+  /*a function that will close all select boxes in the document,
+  except the current select box:*/
+  var x, y, i, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  for (i = 0; i < y.length; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < x.length; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+/*if the user clicks anywhere outside the select box,
+then close all select boxes:*/
+document.addEventListener("click", closeAllSelect);
+function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+// Get the modal
+var modal = document.getElementById("myModal");
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+</body>
+</html>
