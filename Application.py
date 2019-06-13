@@ -8,7 +8,10 @@ app = Flask(__name__)
 
 @app.route('/', methods=['get', 'post'])
 def home():
-    return render_template('Database_page2.html')
+    try:
+        return render_template('Database_page2.html')
+    except:
+        return render_template('Database_page2.html')
 
 
 @app.route('/results', methods=['get', 'post'])
