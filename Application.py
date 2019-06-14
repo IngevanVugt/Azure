@@ -11,6 +11,10 @@ app = Flask(__name__)
 
 @app.route('/', methods=['get', 'post'])
 def home():
+    """ Deze functie returnd een html template
+    
+    :return render template van de database_page2.html, geeft de homepagina weer
+    """
     return render_template('Database_page2.html')
 
 
