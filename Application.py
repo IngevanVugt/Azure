@@ -309,7 +309,6 @@ def blast():
             anders = True
     resultaat = resultaat_beschrijving(dna, rna, eiwit, anders)
     titel = blasten(dna, sequentie)
-    print(titel)
     # if add is None:
     #     resultaten_database()
     # if add is not None:
