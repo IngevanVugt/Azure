@@ -21,31 +21,7 @@ body, html {
 * {
     box-sizing: border-box;
 }
-.btn-liquid {
-	display: inline-block;
-	position: relative;
-	width: 240px;
-	height: 60px;
-	border-radius: 27px;
-	color: #fff;
-	font: 700 14px/60px "Droid Sans", sans-serif;
-	letter-spacing: 0.05em;
-	text-align: center;
-	text-decoration: none;
-	text-transform: uppercase;
-}
-.btn-liquid .inner {
-	position: relative;
-	z-index: 2;
-}
-.btn-liquid canvas {
-	position: absolute;
-	top: -50px;
-	right: -50px;
-	bottom: -50px;
-	left: -50px;
-	z-index: 1;
-}
+
 #regForm {
   background-color: #ffffff;
   margin: 100px auto;
@@ -64,10 +40,7 @@ input {
   font-family: Raleway;
   border: 1px solid #aaaaaa;
 }
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-  background-color: #ffdddd;
-}
+
 /* Hide all steps by default: */
 .tab {
   display: none;
@@ -181,18 +154,7 @@ ul.ks-cboxtags li input[type="checkbox"] {
 ul.ks-cboxtags li input[type="checkbox"]:focus + label {
   border: 2px solid #e9a1ff;
 }
-  .btn {
-  background-color: teal; /* Blue background */
-  border: none; /* Remove borders */
-  color: white; /* White text */
-  padding: 6px 5px; /* Some padding */
-  font-size: 10px; /* Set a font size */
-  cursor: pointer; /* Mouse pointer on hover */
-}
-/* Darker background on mouse-over */
-.btn:hover {
-  background-color: black;
-}
+
 </style>
 <body>
 
@@ -204,14 +166,11 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
       <a href={{ url_for('protein') }} class="w3-bar-item w3-button">PROTEIN</a>
       <a href={{ url_for('organisms') }} class="w3-bar-item w3-button">ORGANISM</a>
       <a href={{ url_for('blast') }} class="w3-bar-item w3-button">BLAST</a>
-     <div class="w3-right w3-hide-small">
-      <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
-      <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-group"></i> TEAM</a>
-
-    </div>
-      <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-theme w3-opacity " style="width:100%">Click here to search Database</button>
-
-    <!-- Right-sided navbar links -->
+         <div class="w3-right w3-hide-small">
+          <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+          <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-group"></i> TEAM</a>
+        </div>
+        <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-theme w3-opacity " style="width:100%">Click here to search Database</button>
 
     <!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
@@ -235,11 +194,11 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
   <div class="w3-display-left w3-text-white " style="padding:48px">
     <span class="w3-jumbo w3-hide-small" style="-webkit-text-stroke: 1px black">Champ data</span><br>
     <span class="w3-xxlarge w3-hide-large w3-hide-medium">Champ data</span><br>
-    <span class="w3-large w3-text-black" style="-webkit-text-stroke: 1px black">The database with all te info on micro organisms in compost researched with metagenomics</span>
+    <span class="w3-large w3-text-black" style="-webkit-text-stroke: 1px black">The database with all the info on micro organisms in compost researched with metagenomics</span>
   </div>
 </header>
 
-
+<!-- modal form for database query -->
   <div id="id01" class="w3-modal">
     <div class="w3-modal-content">
         <span onclick="document.getElementById('id01').style.display='none'"
@@ -247,10 +206,13 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
       <div class="w3-container">
         <form action='/results' id="regForm"  method="post">
           <h1>Database search:</h1>
+
           <!-- One "tab" for each step in the form: -->
           <div class="tab w3-center">What do you want to see?
             <div class="w3-bar-block w3-container">
             <div class="container">
+
+              <!-- animated checkboxes to choose what you want to see in the resutlts -->
               <ul class="ks-cboxtags">
                 <li><input type="checkbox" oninput="this.className = ''" id="checkboxOne" name="checkboxOne" value="Blast_type"><label for="checkboxOne">Blast type</label></li>
                 <li><input type="checkbox" oninput="this.className = ''" id="checkboxTwo"  name="checkboxTwo" value="Score" ><label for="checkboxTwo">score</label></li>
@@ -272,31 +234,35 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
               </div>
             </div>
           </div>
+
+            <!-- second tab for text search in proteins and organisms -->
           <div class="tab">Would you like to search an organism or protein?
             <p><input placeholder="Search organism..." oninput="this.className = ''" name="organisme" ></p>
             <p><input placeholder="Search Protein..." oninput="this.className = ''" name="eiwit" ></p>
           </div>
+            <!-- third tab for more detailed number filters on score, identity, query cover and e-value -->
           <div class="tab">Some more detailed filter options:
             <div class="w3-row-padding" style="margin:8px -16px;">
-          <div class="w3-half w3-margin-bottom">
-              <select name="E_value_parameter">
-                 <option value=">=">More</option>
-                 <option value="=">Equal</option>
-                 <option value="<=">Less</option>
-              </select>
-              <label>E-value</label>
-            <input class="w3-input w3-border" oninput="this.className = ''" type="number" value="" name="E-value_value" min="0,000005" max="6">
-          </div>
-          <div class="w3-half">
-            <select name="Score_parameter">
-                 <option value=">=">More</option>
-                 <option value="=">Equal</option>
-                 <option value="<=">Less</option>
-            </select>
-              <label>Score</label>
+                <div class="w3-half w3-margin-bottom">
+                    <!--the option for more/less/equal than this value -->
+                      <select name="E_value_parameter">
+                         <option value=">=">More</option>
+                         <option value="=">Equal</option>
+                         <option value="<=">Less</option>
+                      </select>
+                      <label>E-value</label>
+                      <input class="w3-input w3-border" oninput="this.className = ''" type="number" value="" name="E-value_value" min="0,000005" max="100">
+                </div>
+            <div class="w3-half">
+                <select name="Score_parameter">
+                     <option value=">=">More</option>
+                     <option value="=">Equal</option>
+                     <option value="<=">Less</option>
+                </select>
+                <label>Score</label>
                 <input class="w3-input w3-border" oninput="this.className = ''" type="number" value="" name="Score_value" min="0" max="1000">
-          </div>
-        </div>
+            </div>
+            </div>
           <div class="w3-row-padding" style="margin:8px -16px;">
           <div class="w3-half w3-margin-bottom">
             <select name="percent_identity_parameter">
@@ -319,30 +285,36 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
 
         </div>
           </div>
+          <!-- fourth tab to choose what blast type and what reads you want to see -->
           <div class="tab">What kind of results do you want?
              <div class="w3-panel w3-wide w3-theme w3-opacity">
               <p >READS</p>
              </div>
+
+              <!-- checkboxes for the reads -->
               <div class="w3-container">
              <ul class="ks-cboxtags">
-                <li><input type="checkbox" oninput="this.className = ''" id="checkboxread1" name = "checkboxread1" value="1"><label for="checkboxread1">Read 1</label></li>
-                <li><input type="checkbox" oninput="this.className = ''" id="checkboxread2" name = "checkboxread2" value="2"><label for="checkboxread2">Read 2</label></li>
-                <li><input type="checkbox" oninput="this.className = ''" id="checkboxread3" name = "checkboxread3" value="(Read_type = 1 or Read_type = 2)"><label for="checkboxread3">Read 1 & 2</label></li>
+                <li><input type="checkbox" oninput="this.className = ''" id="checkboxread1" name = "checkboxread1" value="'read_1'"><label for="checkboxread1">Read 1</label></li>
+                <li><input type="checkbox" oninput="this.className = ''" id="checkboxread2" name = "checkboxread2" value="'read_2'"><label for="checkboxread2">Read 2</label></li>
+                <li><input type="checkbox" oninput="this.className = ''" id="checkboxread3" name = "checkboxread3" value="'read_1' and Read_type = 'read_2'"><label for="checkboxread3">Read 1 & 2</label></li>
              </ul>
           </div>
+
           <div class="w3-panel w3-wide w3-theme w3-opacity">
               <p >BLAST TYPE</p>
+              <!-- checkboxes for the blast types -->
              </div>
               <ul class="ks-cboxtags">
                 <li><input type="checkbox" oninput="this.className = ''" id="checkboxblastx" name = "checkboxblastx" value="'blastx'"><label for="checkboxblastx">Blastx</label></li>
                 <li><input type="checkbox" oninput="this.className = ''" id="checkboxtblastx" name = "checkboxtblastx" value="'tblastx'"><label for="checkboxtblastx">tBlastx</label></li>
-                <li><input type="checkbox" oninput="this.className = ''" id="checkboxboth" name = "checkboxboth" value="(Blast_type = 'blastx' or Blast_type= 'tblastx')"><label for="checkboxboth">tBlastx & Blastx</label></li>
+                <li><input type="checkbox" oninput="this.className = ''" id="checkboxboth" name = "checkboxboth" value="'tblastx' and Blast_type = 'blastx'"><label for="checkboxboth">tBlastx & Blastx</label></li>
               </ul>
 
         </div>
           </div>
           <div style="overflow:auto;">
             <div style="float:right;">
+              <!-- next and previous buttons -->
               <button type="button" class="w3-theme" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
               <button type="button" class="w3-theme" id="nextBtn" onclick="nextPrev(1)">Next</button>
             </div>
@@ -359,6 +331,7 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
     </div>
   </div>
 
+<!-- links to socials for fun -->
   <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>
@@ -467,22 +440,7 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
 </footer>
 <script scr="https://codepen.io/waaark/pen/VbgwEM.js"></script>
 <script>
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
-// Toggle between showing and hiding the sidebar when clicking the menu icon
-var mySidebar = document.getElementById("mySidebar");
-function w3_open() {
-  if (mySidebar.style.display === 'block') {
-    mySidebar.style.display = 'none';
-  } else {
-    mySidebar.style.display = 'block';
-  }
-}
+
 // Close the sidebar with the close button
 function w3_close() {
     mySidebar.style.display = "none";

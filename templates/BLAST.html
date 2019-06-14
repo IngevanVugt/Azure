@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
-    <title>Organisms</title>
+    <title>Blast</title>
     <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 body, html {
@@ -93,47 +93,37 @@ h1 {
       <a href={{ url_for("protein") }} class="w3-bar-item w3-button">PROTEIN</a>
       <a href= {{ url_for("organisms") }} class="w3-bar-item w3-button">ORGANISM</a>
       <a href={{ url_for("blast") }} class="w3-bar-item w3-button w3-teal w3-opacity">BLAST</a>
-    <!-- Right-sided navbar links -->
-
-    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
-
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
-      <i class="fa fa-bars"></i>
-    </a>
   </div>
 </div>
 
-<!-- Sidebar on small screens when clicking the menu icon -->
-<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
-  <a href={{ url_for("organisms") }} onclick="w3_close()" class="w3-bar-item w3-button">Organism</a>
-  <a href={{ url_for("protein") }} onclick="w3_close()" class="w3-bar-item w3-button">Protein</a>
-  <a href={{ url_for("blast") }} class="w3-bar-item w3-button w3-teal w3-opacity">BLAST</a>
-</nav>
-<!-- https://www.ncbi.nlm.nih.gov/protein/accesiecode -->
 <!-- Header with full-height image -->
 <header class="bgimg-1 w3-display-container w3-opacity" id="home">
+    <p style="float: right; margin-right: 200px" class=""><img src="../static/champy_science.gif" height="300px" width="300px" border="1px"></p>
   <div class="w3-display-left w3-text-white " style="padding:48px">
     <span class="w3-jumbo w3-hide-small" >BLAST</span><br>
     <span class="w3-xxlarge w3-hide-large w3-hide-medium">BLAST</span><br>
     <span class="w3-xlarge w3-text-white">Here you can BLAST a sequence and add it to our ever growing database</span>
   </div>
 </header>
+
+<!-- Drop down form to choose what blast type to blast with -->
 <form method="get">
     <div class="custom-select">
-    <select name="blast_type" >
-        <option value="0">Click here to select the blast type:</option>
-        <option value="blastx">Blastx</option>
-        <option value="tblastx">Tblastx</option>
-    </select>
+        <select name="blast_type" >
+            <option value="0">Click here to select the blast type:</option>
+            <option value="blastx">Blastx</option>
+            <option value="tblastx">Tblastx</option>
+        </select>
     </div>
+
     <p>
     <input class="w3-margin w3-block" placeholder="Type your sequence to blast here..." type="text" name="seq">
     <input  class="w3-button w3-teal w3-margin-left" type="submit" value="BLAST!!">
     </p>
-</div>
 </form>
 
+<!-- styling format for blast results - 1:drop down with sequence 2: drop down with validation (what is the sequence)
+     3: The blast results -->
 <div class="w3-container w3-margin">
     <button onclick="myFunction('Demo1')" class="w3-btn w3-block w3-teal w3-opacity w3-left-align w3-border">Click here to see your queried sequence:</button>
         <div id="Demo1" class="w3-container w3-hide">
@@ -148,17 +138,18 @@ h1 {
     <button onclick="myFunction('Demo3')" class="w3-btn w3-block w3-teal w3-opacity w3-left-align w3-border">Click here to see the BLAST results:</button>
         <div id="Demo3" class="w3-container w3-hide">
           <div class="w3-panel w3-card-4">
-              <h4>BLAST results:</h4></div>
-            <div class="w3-card-4">
-                <div class="w3-panel w3-teal">
-                    <p class="w3-wide w3-margin-top"> ALLIGNMENT</p>
-                        <form>
-                    <input type="checkbox" name="adding" value="hellooo">
-                            <button type="submit" class="w3-button w3-white w3-margin-bottom" >ADD +</button>
-                </form>
-                </div>
-                    {{ titel }}
-            </div>
+              <h4>BLAST results:</h4>
+          </div>
+          <div class="w3-card-4">
+              <div class="w3-panel w3-teal">
+                  <p class="w3-wide w3-margin-top"> ALLIGNMENT</p>
+                  <form>
+                      <input type="checkbox" name="adding" value="hellooo">
+                      <button type="submit" class="w3-button w3-white w3-margin-bottom" >ADD +</button>
+                  </form>
+              </div>
+                <pre>{{ titel }}</pre>
+          </div>
         </div>
 </div>
 
@@ -241,26 +232,6 @@ function myFunction(id) {
     x.className += " w3-show";
   } else {
     x.className = x.className.replace(" w3-show", "");
-  }
-}
-// Get the modal
-var modal = document.getElementById("myModal");
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
   }
 }
 </script>
