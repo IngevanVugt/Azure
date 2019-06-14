@@ -201,7 +201,6 @@ def result_querys(lijst_kolommen, resultaat_kolommen, resultaat_where):
         query = "select {} from seq_read join blast b on seq_read.Read_ID = b.Blast_ID " \
                 "join eiwitten e on b.Blast_ID = e.Prot_id {}" \
             .format(" , ".join(resultaat_kolommen), " and ".join(resultaat_where))
-        print(query)
         cursor.execute(query)
         resultaat = cursor.fetchall()
     cursor.close()
