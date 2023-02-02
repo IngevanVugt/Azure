@@ -3,6 +3,6 @@
 # De opgeven versie is optioneel
 Flask==1.0.3
 Jinja2==2.10.1
-Werkzeug==0.15.4
+Werkzeug==0.15.5
 mysql-connector==2.2.9
 biopython==1.73
